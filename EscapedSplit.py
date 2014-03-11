@@ -1,25 +1,26 @@
 def _count_rstripped(s, escape_char):
-	"""
-		Counts how many escape_chars was stripped from the end of the string s.
+	""" 
+	Counts how many escape_chars was stripped from the end of the string s.
 	"""
 	before = len(s)
 	after = len(s.rstrip(escape_char))
 	return before - after
 
 def _rstrip_escape(s, escape_char):
-	"""
-		Removes the escape_char occurences from the end of the string s. Such 
-		that the escaped char will be kept. The function returns a tuple of the 
-		number of occurences of the escape_char and the stripped string:
+	""" 
+	Removes the escape_char occurences from the end of the string s. Such 
+	that the escaped char will be kept. The function returns a tuple of the 
+	number of occurences of the escape_char and the stripped string:
 
-		_remove_escape("test$$", "$") == (2, "test$")
-		_remove_escape("test^^^^^) == (5, "test^^^")
+	_remove_escape("test$$", "$") == (2, "test$")
+	_remove_escape("test^^^^^) == (5, "test^^^")
 	"""
 	# First, count occurences of escape_char at the end of s.
 	num_stripped = _count_rstripped(s, escape_char)
 	even_or_none = not (num_stripped % 2)
 	# Take the substring first (without the escape at the end)
-	correct_form = s[0:len(s) - num_stripped]
+	correct_form = s[: len(s) - num_stripped]
+	
 	# Repeat escape_char as many times as needed (i.e., (n / 2) + (n % 2))
 	correct_form += (escape_char * (num_stripped / 2))
 	if not even_or_none:
@@ -28,19 +29,19 @@ def _rstrip_escape(s, escape_char):
 
 
 def escaped_split(s, separator = "|", escape_char = "\\"):
-	"""
-		Splits the string s at any occurence of separator that is not escaped 
-		by the escape_char. The escape_char can be escaped as many times as 
-		wanted.
+	""" 
+	Splits the string s at any occurence of separator that is not escaped 
+	by the escape_char. The escape_char can be escaped as many times as 
+	wanted.
 
-		The function does not return empty list items.
+	The function does not return empty list items.
 
-		Examples:
-			escaped_split("a|b") == ["a", "b"]
-			escaped_split("a|b\|c") == ["a", "b|c"]
-			escaped_split("a|b\\|c") == ["a", "b\", "c"]
-			escaped_split("a|b\\\|c") == ["a", "b\|c"]
-			escaped_split("a|b|c|") == ["a", "b", "c"]
+	Examples:
+		escaped_split("a|b") == ["a", "b"]
+		escaped_split("a|b\|c") == ["a", "b|c"]
+		escaped_split("a|b\\|c") == ["a", "b\", "c"]
+		escaped_split("a|b\\\|c") == ["a", "b\|c"]
+		escaped_split("a|b|c|") == ["a", "b", "c"]
 	"""
 	init_list = s.split(separator)
 	# Array with the same length for start.
