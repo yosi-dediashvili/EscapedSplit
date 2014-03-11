@@ -6,7 +6,9 @@ TESTS = {
 	r"a|b^^|c"		: ["a", "b^", "c"],
 	r"a|b^^^^|c"	: ["a", "b^^", "c"],
 	r"a|b^^^^^|c"	: ["a", "b^^|c"],
-	r"a|b|c|"		: ["a", "b", "c"]
+	r"a|b|c|"		: ["a", "b", "c"],
+	r""				: [],
+	r"^||"			: ["|"]
 }
 
 for s, l in TESTS.iteritems():
