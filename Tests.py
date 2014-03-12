@@ -7,6 +7,7 @@ TESTS = {
 	r"a|b^^^^|c"	: ["a", "b^^", "c"],
 	r"a|b^^^^^|c"	: ["a", "b^^|c"],
 	r"a|b|c|"		: ["a", "b", "c"],
+	r"some^long|list|with^^^^^escaping^|of|the^|sep^|arator" : ["some^long", "list", "with^^^^^escaping|of", "the|sep|arator"],
 	r""				: [],
 	r"^||"			: ["|"]
 }
@@ -14,9 +15,9 @@ TESTS = {
 for s, l in TESTS.iteritems():
 	print "Testing: \"%s\", Expecting: %s" % (s, l)
 	result_l = escaped_split(s, '|', '^')
-	#result_l = remove_escape(result_l)
 	print "Got: %s" % result_l
 	if (result_l != l):
 		print "Failed!"
 	else:
 		print "Succeeded!"
+	print "-----------------------------------------------------"
