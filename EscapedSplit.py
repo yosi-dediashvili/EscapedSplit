@@ -6,7 +6,7 @@ from string import Template
 
 def _compile_re(template, separator, escape_char):
 	"""
-	Cosntructs the regex expression, and escapes the escape_char in the separ-
+	Constructs the regex expression, and escapes the escape_char in the separ-
 	ator before it places them in the template if they are contained in  the 
 	RE_SPECIAL_CHARS string.
 	"""
@@ -58,7 +58,7 @@ def _remove_escaping(s, separator, escape_char):
 
 def escaped_split(s, separator = "|", escape_char = "\\"):
 	""" 
-	Splits the string s at any occurence of separator that is not escaped 
+	Splits the string s at any occurrence of separator that is not escaped 
 	by the escape_char. The escape_char can be escaped as many times as 
 	wanted.
 
@@ -77,6 +77,8 @@ def escaped_split(s, separator = "|", escape_char = "\\"):
 		escaped_split("a|b|c|") 	== ["a", "b", "c"]
 		escaped_split("aaa\aa|bbbb) == ["aaa\aa", "bbbb"]
 	"""
+	# Matches any [escape char followed by anything, or a char that is not the
+	# separator] as may times as possible.
 	template = Template("(?:${escape_char}.|[^${separator}])*")
 	r = _compile_re(template, separator, escape_char)
 	# Find all matching, i.e., split the string, and remove empty elements.
